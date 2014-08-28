@@ -1,6 +1,6 @@
 {
-  "name": "koa-static-scaffold",
-  "version": "0.1.1",
+  "name": "static-scaffold",
+  "version": "0.1.2",
   "description": "a scaffold for develop and build static website fast",
   "main": "bin/cli.js",
   "bin": {
@@ -13,14 +13,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/lisposter/koa-static-scaffold.git"
+    "url": "git://github.com/lisposter/static-scaffold.git"
   },
   "keywords": [
     "koa",
     "static",
-    "front",
-    "end",
-    "scaffold"
+    "front-end",
+    "scaffold",
+    "develop"
   ],
   "author": "Leigh Zhu",
   "license": "MIT"

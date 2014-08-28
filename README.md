@@ -1,4 +1,4 @@
-# koa-static-scaffold
+# static-scaffold
 a scaffold for develop and build static website fast.
 
 ## Features
@@ -16,7 +16,7 @@ a scaffold for develop and build static website fast.
 
 ## Install
 ```
-$ npm i -g koa-static-scaffold
+$ npm i -g static-scaffold
 ```
 
 ## Bootstrap
