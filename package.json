@@ -1,21 +1,12 @@
 {
   "name": "koa-static-scaffold",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "a scaffold for develop and build static website fast",
   "main": "bin/cli.js",
-  "dependencies": {
-    "koa": "^0.10.0",
-    "koa-common": "^1.2.0",
-    "koa-router": "^3.3.0",
-    "koa-static": "^1.4.6",
-    "koa-views": "^2.1.0",
-    "swig": "^1.4.2",
-    "jade": "^1.5.0"
+  "bin": {
+    "scaffold": "bin/cli.js"
   },
-  "devDependencies": {
-    "gulp": "^3.8.7",
-    "gulp-copy": "0.0.2",
-    "gulp-jade": "^0.7.0"
+  "dependencies": {
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

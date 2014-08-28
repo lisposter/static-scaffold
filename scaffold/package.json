@@ -1,0 +1,36 @@
+{
+  "name": "#name#",
+  "version": "0.0.1",
+  "description": "#name# static website",
+  "main": "bin/cli.js",
+  "dependencies": {
+    "koa": "^0.10.0",
+    "koa-common": "^1.2.0",
+    "koa-router": "^3.3.0",
+    "koa-static": "^1.4.6",
+    "koa-views": "^2.1.0",
+    "swig": "^1.4.2",
+    "jade": "^1.5.0"
+  },
+  "devDependencies": {
+    "gulp": "^3.8.7",
+    "gulp-copy": "0.0.2",
+    "gulp-jade": "^0.7.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "keywords": [
+    "koa",
+    "static",
+    "front",
+    "end",
+    "scaffold"
+  ],
+  "author": "#author#",
+  "license": ""
+}
