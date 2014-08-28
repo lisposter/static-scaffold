@@ -1,6 +1,19 @@
 # koa-static-scaffold
 a scaffold for develop and build static website fast.
 
+## Features
+
+* fast bootstrap a static website project
+* local preview(no need to config nginx or apache)
+* support template engine like `jade`, `swig`
+* supoort live-reload(*in dev*)
+* build static files(compile jade or swig templates) (*in dev*)
+* build with both gulp and grunt  (*in dev*)
+* fast deploy with ftp or other ways (*in plan*)
+* support less, scss  (*in plan*)
+* still planning...
+
+
 ## Install
 ```
 $ npm i -g koa-static-scaffold
