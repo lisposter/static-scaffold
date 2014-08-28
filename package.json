@@ -12,7 +12,11 @@
     "swig": "^1.4.2",
     "jade": "^1.5.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "gulp": "^3.8.7",
+    "gulp-copy": "0.0.2",
+    "gulp-jade": "^0.7.0"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

@@ -43,3 +43,4 @@ Session.vim
 .netrwhist
 *~
 src/*
+dist/*

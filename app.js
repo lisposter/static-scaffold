@@ -10,7 +10,7 @@ var app = koa();
 var cfg = require('./config');
 var viewsOpts = require('./lib/views-options');
 
-app.use(views(__dirname + cfg.root + '/' + cfg.views, viewsOpts[cfg.tplengine]));
+app.use(views(__dirname + '/' + cfg.root + '/' + cfg.views, viewsOpts[cfg.tplengine]));
 
 app.use(router(app));
 
