@@ -44,6 +44,11 @@ start local server
 $ node --harmony app.js
 ```
 
+or, when you're developing, you can start a live-reload server:
+```
+$ node --harmony gulp live
+```
+
 visit `http://localhost:8300`
 
 ### Build

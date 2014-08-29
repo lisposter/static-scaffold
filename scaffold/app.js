@@ -29,5 +29,10 @@ app.get(/.*\.html|.*\.htm|^\/$/, function* (next) {
 
 app.use(common.static(__dirname + cfg.root + '/' + cfg.statics));
 
-app.listen(cfg.port);
-console.log('Server started at: http://localhost:' + cfg.port);
+if (!module.parent) {
+    app.listen(cfg.port);
+    console.log('Server started at: http://localhost:' + cfg.port);
+}
+
+
+module.exports = app;
