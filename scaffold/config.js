@@ -7,7 +7,10 @@ module.exports = {
     root: 'src',
 
     // project's static files' path, eg: css, js, image
-    statics: 'static',
+    assets: 'assets',
+
+    // less
+    less: 'less',
 
     // web pages source, eg: .jade files
     views: 'views',

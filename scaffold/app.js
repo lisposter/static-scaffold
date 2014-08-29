@@ -1,4 +1,5 @@
 var fs = require('fs');
+var path = require('path');
 
 var koa = require('koa');
 var common = require('koa-common');
@@ -27,7 +28,7 @@ app.get(/.*\.html|.*\.htm|^\/$/, function* (next) {
     yield this.render(tpl);
 })
 
-app.use(common.static(__dirname + cfg.root + '/' + cfg.statics));
+app.use(common.static(path.join(__dirname, cfg.root, cfg.assets)));
 
 if (!module.parent) {
     app.listen(cfg.port);
