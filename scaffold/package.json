@@ -1,7 +1,7 @@
 {
-  "name": "#name#",
+  "name": "__NAME__",
   "version": "0.0.1",
-  "description": "#name# static website",
+  "description": "__NAME__ static website",
   "main": "bin/cli.js",
   "dependencies": {
     "koa": "^0.10.0",
@@ -17,6 +17,7 @@
     "gulp-copy": "0.0.2",
     "gulp-jade": "^0.7.0",
     "gulp-livereload": "^2.1.1",
+    "gulp-swig": "^0.7.2",
     "gulp-watch": "^0.6.10"
   },
   "scripts": {
@@ -33,6 +34,6 @@
     "end",
     "scaffold"
   ],
-  "author": "#author#",
+  "author": "__AUTHOR__",
   "license": ""
 }

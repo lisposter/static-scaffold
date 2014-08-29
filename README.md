@@ -6,8 +6,8 @@ a scaffold for develop and build static website fast.
 * fast bootstrap a static website project
 * local preview(no need to config nginx or apache)
 * support template engine like `jade`, `swig`
-* supoort live-reload(*in dev*)
-* build static files(compile jade or swig templates) (*in dev*)
+* supoort live-reload
+* build static files(compile jade or swig templates)
 * build with both gulp and grunt  (*in dev*)
 * fast deploy with ftp or other ways (*in plan*)
 * support less, scss  (*in plan*)

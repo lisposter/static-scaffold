@@ -18,8 +18,8 @@ exec(cpCmd, function (err, stdout, stderr) {
         if(err) throw err;
         var author = stdout.replace(/[\n\r]/g, '');
         var content = fs.readFileSync(projDir + '/package.json', 'utf8');
-        content = content.replace(/#name#/g, name);
-        content = content.replace(/#author#/, author);
+        content = content.replace(/__NAME__/g, name);
+        content = content.replace(/__AUTHOR__/, author);
         fs.writeFileSync(projDir + '/package.json', content);
 
         fs.mkdirSync(path.join(projDir, 'src'));

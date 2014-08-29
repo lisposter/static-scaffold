@@ -1,5 +1,6 @@
 var gulp = require('gulp');
 var jade = require('gulp-jade');
+var swig = require('gulp-swig');
 var copy = require('gulp-copy');
 var watch = require('gulp-watch');
 var livereload = require('gulp-livereload');
@@ -9,6 +10,12 @@ var cfg = require('./config');
 gulp.task('templates-jade', function() {
     gulp.src(cfg.root + '/' + cfg.views + '/**/*.jade')
         .pipe(jade())
+        .pipe(gulp.dest('./dist/'))
+})
+
+gulp.task('templates-swig', function() {
+    gulp.src(cfg.root + '/' + cfg.views + '/**/*.html')
+        .pipe(swig())
         .pipe(gulp.dest('./dist/'))
 })
 
