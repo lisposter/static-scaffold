@@ -11,7 +11,7 @@ var app = koa();
 var cfg = require('./config');
 var viewsOpts = require('./lib/views-options');
 
-app.use(views(__dirname + '/' + cfg.root + '/' + cfg.views, viewsOpts[cfg.tplengine]));
+app.use(views(__dirname + '/' + cfg.src + '/' + cfg.views, viewsOpts[cfg.tplengine]));
 
 app.use(router(app));
 
@@ -28,7 +28,11 @@ app.get(/.*\.html|.*\.htm|^\/$/, function* (next) {
     yield this.render(tpl);
 })
 
-app.use(common.static(path.join(__dirname, cfg.root, cfg.assets)));
+// serve static files which doesn't need to compile(.css, .jpg, etc)
+app.use(common.static(path.join(__dirname, cfg.src, cfg.assets)));
+
+// serve .less, .scss, etc.
+app.use(common.static(path.join(__dirname, 'dist')));
 
 if (!module.parent) {
     app.listen(cfg.port);

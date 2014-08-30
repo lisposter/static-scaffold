@@ -4,7 +4,7 @@ module.exports = {
     tplengine: 'swig',
 
     // project's source dir
-    root: 'src',
+    src: 'src',
 
     // project's static files' path, eg: css, js, image
     assets: 'assets',

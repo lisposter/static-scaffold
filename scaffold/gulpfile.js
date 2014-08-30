@@ -12,27 +12,27 @@ var del = require('del');
 var cfg = require('./config');
 
 gulp.task('templates-jade', function() {
-    gulp.src(cfg.root + '/' + cfg.views + '/**/*.jade')
+    gulp.src(cfg.src + '/' + cfg.views + '/**/*.jade')
         .pipe(jade())
         .pipe(gulp.dest('./dist/'))
 })
 
 gulp.task('templates-swig', function() {
-    gulp.src(cfg.root + '/' + cfg.views + '/**/*.html')
+    gulp.src(cfg.src + '/' + cfg.views + '/**/*.html')
         .pipe(swig())
         .pipe(gulp.dest('./dist/'))
 })
 
 gulp.task('compile-less', function() {
-    gulp.src(path.join(cfg.root, cfg.assets, cfg.less) + '/**/*.less')
-        //.pipe(watch())
+    gulp.src(path.join(cfg.src, cfg.assets, cfg.less) + '/**/*.less')
+        .pipe(watch())
         .pipe(less())
         .pipe(gulp.dest('./dist/css'))
 })
 
 // devide copy task(css, less, img...)
 gulp.task('copy-static', function() {
-    gulp.src(cfg.root + '/' + cfg.assets + '/**/*')
+    gulp.src(cfg.src + '/' + cfg.assets + '/**/*')
         .pipe(copy('./dist', { prefix: 2 }))
 })
 
@@ -58,7 +58,7 @@ gulp.task('clean', function(cb) {
 })
 
 
-gulp.task('build', ['templates-' + cfg.tplengine, 'copy-static']);
+gulp.task('build', ['templates-' + cfg.tplengine, 'copy-static', 'compile-less']);
 
 gulp.task('live', ['server', 'watch'])
 
