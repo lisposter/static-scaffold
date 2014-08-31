@@ -4,6 +4,7 @@ var gulp = require('gulp');
 var jade = require('gulp-jade');
 var swig = require('gulp-swig');
 var less = require('gulp-less');
+var sass = require('gulp-sass');
 var copy = require('gulp-copy');
 var watch = require('gulp-watch');
 var livereload = require('gulp-livereload');
@@ -11,22 +12,29 @@ var del = require('del');
 
 var cfg = require('./config');
 
-gulp.task('templates-jade', function() {
+gulp.task('jade', function() {
     gulp.src(cfg.src + '/' + cfg.views + '/**/*.jade')
         .pipe(jade())
         .pipe(gulp.dest('./dist/'))
 })
 
-gulp.task('templates-swig', function() {
+gulp.task('swig', function() {
     gulp.src(cfg.src + '/' + cfg.views + '/**/*.html')
         .pipe(swig())
         .pipe(gulp.dest('./dist/'))
 })
 
-gulp.task('compile-less', function() {
+gulp.task('less', function() {
     gulp.src(path.join(cfg.src, cfg.assets, cfg.less) + '/**/*.less')
         .pipe(watch())
         .pipe(less())
+        .pipe(gulp.dest('./dist/css'))
+})
+
+gulp.task('sass', function() {
+    gulp.src(path.join(cfg.src, cfg.assets, cfg.sass) + '/**/*')
+        .pipe(watch())
+        .pipe(sass())
         .pipe(gulp.dest('./dist/css'))
 })
 
@@ -41,8 +49,10 @@ gulp.task('server', function() {
     app.listen(process.env.PORT || cfg.port);
 });
 
-gulp.task('watch', function() {less
-    gulp.watch('src/assets/less/**/*.less', ['compile-less']);
+gulp.task('watch', function() {
+    gulp.watch('src/assets/less/**/*.less', ['less']);
+
+    gulp.watch('src/assets/sass/**/*', ['sass']);
 
     var server = livereload();
     server.changed();
@@ -58,7 +68,7 @@ gulp.task('clean', function(cb) {
 })
 
 
-gulp.task('build', ['templates-' + cfg.tplengine, 'copy-static', 'compile-less']);
+gulp.task('build', [cfg.tplengine, 'copy-static', 'compile-less']);
 
-gulp.task('live', ['server', 'watch'])
+gulp.task('live', ['server', 'sass', 'less', 'watch'])
 

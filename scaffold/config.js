@@ -12,6 +12,9 @@ module.exports = {
     // less
     less: 'less',
 
+    // sass
+    sass: 'sass',
+
     // web pages source, eg: .jade files
     views: 'views',
 

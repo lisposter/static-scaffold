@@ -10,7 +10,7 @@ a scaffold for develop and build static website fast.
 * build static files(compile jade or swig templates)
 * build with both gulp and grunt  (*in dev*)
 * fast deploy with ftp or other ways (*in plan*)
-* support less, scss  (*in plan*)
+* support less, sass
 * still planning...
 
 
