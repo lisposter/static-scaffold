@@ -53,4 +53,10 @@ visit `http://localhost:8300`
 
 ### Build
 
+```
+$ gulp  build
+```
+
+This command will build static website into `./dist` dir.
+
 *Currently in dev now. :)*
