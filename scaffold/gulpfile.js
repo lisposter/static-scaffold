@@ -5,6 +5,7 @@ var jade = require('gulp-jade');
 var swig = require('gulp-swig');
 var less = require('gulp-less');
 var sass = require('gulp-sass');
+var minifyCss = require('gulp-minify-css');
 var copy = require('gulp-copy');
 var uglify = require('gulp-uglify');
 var useref = require('gulp-useref');
@@ -39,11 +40,14 @@ gulp.task('ref', ['dist'], function() {
     var cssFilter = filter('**/*.css');
 
     var assets = useref.assets();
-    gulp.src('./dist/index.html')
+    gulp.src('./dist/**/*.html')
         .pipe(assets)     
         .pipe(jsFilter)
         .pipe(uglify())           
         .pipe(jsFilter.restore())
+        .pipe(cssFilter)
+        .pipe(minifyCss())
+        .pipe(cssFilter.restore())
         .pipe(rev())           
         .pipe(assets.restore())
         .pipe(useref())
