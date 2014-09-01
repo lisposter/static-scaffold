@@ -35,6 +35,26 @@ gulp.task('js', function() {
         .pipe(copy('./dist/js', { prefix: 2 }));
 })
 
+gulp.task('less', function() {
+    return gulp.src(path.join(cfg.src, cfg.assets, cfg.less) + '/**/*.less')
+        //.pipe(watch())
+        .pipe(less())
+        .pipe(gulp.dest('./dist/css'))
+})
+
+gulp.task('sass', function() {
+    return gulp.src(path.join(cfg.src, cfg.assets, cfg.sass) + '/**/*')
+        //.pipe(watch())
+        .pipe(sass())
+        .pipe(gulp.dest('./dist/css'))
+})
+
+// devide copy task(css, less, img...)
+gulp.task('copy-assets', function() {
+    gulp.src(cfg.src + '/' + cfg.assets + '/**/*')
+        .pipe(copy('./dist', { prefix: 2 }))
+})
+
 gulp.task('ref', ['dist'], function() {
     var jsFilter = filter('**/*.js');
     var cssFilter = filter('**/*.css');
@@ -53,26 +73,6 @@ gulp.task('ref', ['dist'], function() {
         .pipe(useref())
         .pipe(revReplace())      
         .pipe(gulp.dest('./dist/'))
-})
-
-gulp.task('less', function() {
-    return gulp.src(path.join(cfg.src, cfg.assets, cfg.less) + '/**/*.less')
-        //.pipe(watch())
-        .pipe(less())
-        .pipe(gulp.dest('./dist/css'))
-})
-
-gulp.task('sass', function() {
-    return gulp.src(path.join(cfg.src, cfg.assets, cfg.sass) + '/**/*')
-        //.pipe(watch())
-        .pipe(sass())
-        .pipe(gulp.dest('./dist/css'))
-})
-
-// devide copy task(css, less, img...)
-gulp.task('copy-static', function() {
-    gulp.src(cfg.src + '/' + cfg.assets + '/**/*')
-        .pipe(copy('./dist', { prefix: 2 }))
 })
 
 gulp.task('server', function() {
@@ -99,7 +99,7 @@ gulp.task('clean', function(cb) {
 })
 
 
-gulp.task('dist', [cfg.tplengine, 'copy-static', 'jade', 'swig', 'js', 'less', 'sass'], function(done) {
+gulp.task('dist', [cfg.tplengine, 'copy-assets', 'jade', 'swig', 'js', 'less', 'sass'], function(done) {
     done()
 });
 
