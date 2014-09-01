@@ -51,7 +51,9 @@ gulp.task('sass', function() {
 
 // devide copy task(css, less, img...)
 gulp.task('copy-assets', function() {
+    var assetsFilter = filter(['*', '!*less*', '!*sass*', '!*scss*']);
     gulp.src(cfg.src + '/' + cfg.assets + '/**/*')
+        .pipe(assetsFilter)
         .pipe(copy('./dist', { prefix: 2 }))
 })
 
