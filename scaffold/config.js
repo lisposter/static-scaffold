@@ -9,6 +9,9 @@ module.exports = {
     // project's static files' path, eg: css, js, image
     assets: 'assets',
 
+    // scripts
+    scripts: 'scripts',
+
     // less
     less: 'less',
 
