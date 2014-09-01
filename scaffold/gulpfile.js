@@ -60,7 +60,7 @@ gulp.task('ref', ['dist'], function() {
     var cssFilter = filter('**/*.css');
 
     var assets = useref.assets();
-    gulp.src('./dist/**/*.html')
+    return gulp.src('./dist/**/*.html')
         .pipe(assets)     
         .pipe(jsFilter)
         .pipe(uglify())           
@@ -98,12 +98,19 @@ gulp.task('clean', function(cb) {
     ], cb);
 })
 
+gulp.task('clean:js', ['ref'], function(cb) {
+    del([ 'dist/js/**/*.js', '!dist/js/combined-*.js'], cb)
+})
+
+gulp.task('clean:css', ['ref'], function(cb) {
+    del([ 'dist/css/**/*.css', '!dist/css/combined*'], cb)
+})
 
 gulp.task('dist', [cfg.tplengine, 'copy-assets', 'jade', 'swig', 'js', 'less', 'sass'], function(done) {
     done()
 });
 
-gulp.task('build', ['ref'])
+gulp.task('build', ['ref', 'clean:js', 'clean:css'])
 
 gulp.task('live', ['server', 'sass', 'less', 'watch'])
 
