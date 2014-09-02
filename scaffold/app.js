@@ -26,7 +26,7 @@ app.get(/.*\.html|.*\.htm|^\/$/, function* (next) {
     var url = this.request.url;
     var tpl = /.*\.html/.exec(url)[0].slice(1).replace(/\.html$/, '');
     yield this.render(tpl);
-})
+});
 
 // serve static files which doesn't need to compile(.css, .jpg, etc)
 app.use(common.static(path.join(__dirname, cfg.src, cfg.assets)));
