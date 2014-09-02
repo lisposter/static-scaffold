@@ -12,6 +12,8 @@ var useref = require('gulp-useref');
 var filter = require('gulp-filter');
 var rev = require('gulp-rev');
 var revReplace = require('gulp-rev-replace');
+var revOutdated = require('gulp-rev-outdated');
+var cleaner = require('gulp-rimraf');
 var watch = require('gulp-watch');
 var livereload = require('gulp-livereload');
 var del = require('del');
@@ -108,11 +110,21 @@ gulp.task('clean:css', ['ref'], function(cb) {
     del([ 'dist/css/**/*.css', '!dist/css/combined*'], cb)
 })
 
+gulp.task('clean:combined', ['ref'], function() {
+    gulp.src(['dist/js/combined*.js'], { read: false })
+        .pipe(revOutdated(1))
+        .pipe(cleaner())
+
+    gulp.src(['dist/css/combined*.css'], { read: false })
+        .pipe(revOutdated(1))
+        .pipe(cleaner())
+})
+
 gulp.task('dist', [cfg.tplengine, 'copy-assets', 'jade', 'swig', 'js', 'less', 'sass'], function(done) {
     done()
 });
 
-gulp.task('build', ['ref', 'clean:js', 'clean:css'])
+gulp.task('build', ['ref', 'clean:js', 'clean:css', 'clean:combined'])
 
 gulp.task('live', ['server', 'sass', 'less', 'watch'])
 
