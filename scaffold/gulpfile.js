@@ -111,7 +111,7 @@ gulp.task('clean', function(cb) {
     ], cb);
 });
 
-gulp.task('clean:temp', function(cb) {
+gulp.task('clean:temp', ['dist', 'copy:dist', 'clean:combined'], function(cb) {
     del([
         'temp/**'
     ], cb);
