@@ -22,14 +22,14 @@ var cfg = require('./config');
 
 gulp.task('jade', function() {
     return gulp.src(cfg.src + '/' + cfg.views + '/**/*.jade')
-        .pipe(jade())
-        .pipe(gulp.dest('./dist/'));
+        .pipe(jade({pretty: true}))
+        .pipe(gulp.dest('./temp/'));
 });
 
 gulp.task('swig', function() {
     return gulp.src(cfg.src + '/' + cfg.views + '/**/*.html')
         .pipe(swig())
-        .pipe(gulp.dest('./dist/'));
+        .pipe(gulp.dest('./temp/'));
 });
 
 gulp.task('js', function() {
@@ -41,21 +41,25 @@ gulp.task('less', function() {
     return gulp.src(path.join(cfg.src, cfg.assets, cfg.less) + '/**/*.less')
         //.pipe(watch())
         .pipe(less())
-        .pipe(gulp.dest('./dist/css'));
+        .pipe(gulp.dest('./temp/css'));
 });
 
 gulp.task('sass', function() {
     return gulp.src(path.join(cfg.src, cfg.assets, cfg.sass) + '/**/*')
         //.pipe(watch())
         .pipe(sass())
-        .pipe(gulp.dest('./dist/css'));
+        .pipe(gulp.dest('./temp/css'));
 });
 
 // devide copy task(css, less, img...)
-gulp.task('copy-assets', function() {
-    //var assetsFilter = filter(['*', '!*less*', '!*sass*', '!*scss*']);
-    gulp.src(cfg.src + '/' + cfg.assets + '/**/*')
-        //.pipe(assetsFilter)
+gulp.task('copy:temp', function() {
+    return gulp.src(cfg.src + '/' + cfg.assets + '/**/*')
+        .pipe(copy('./temp', { prefix: 2 }));
+});
+
+// TODO: skip css, js which has been combined
+gulp.task('copy:dist', function() {
+    return gulp.src(cfg.src + '/' + cfg.assets + '/**/*')
         .pipe(copy('./dist', { prefix: 2 }));
 });
 
@@ -64,7 +68,7 @@ gulp.task('ref', ['dist'], function() {
     var cssFilter = filter('**/*.css');
 
     var assets = useref.assets();
-    return gulp.src('./dist/**/*.html')
+    return gulp.src('./temp/**/*.html')
         .pipe(assets)
         .pipe(jsFilter)
         .pipe(uglify())
@@ -82,6 +86,11 @@ gulp.task('ref', ['dist'], function() {
 gulp.task('server', function() {
     var app = require('./app');
     app.listen(process.env.PORT || cfg.port);
+});
+
+gulp.task('review', function() {
+    var app = require('./app-dist');
+    app.listen(process.env.PORT || cfg.port + 1);
 });
 
 gulp.task('watch', function() {
@@ -102,12 +111,10 @@ gulp.task('clean', function(cb) {
     ], cb);
 });
 
-gulp.task('clean:js', ['ref'], function(cb) {
-    del([ 'dist/js/**/*.js', '!dist/js/combined-*.js'], cb);
-});
-
-gulp.task('clean:css', ['ref'], function(cb) {
-    del([ 'dist/css/**/*.css', '!dist/css/combined*'], cb);
+gulp.task('clean:temp', function(cb) {
+    del([
+        'temp/**'
+    ], cb);
 });
 
 gulp.task('clean:combined', ['ref'], function() {
@@ -120,11 +127,11 @@ gulp.task('clean:combined', ['ref'], function() {
         .pipe(cleaner());
 });
 
-gulp.task('dist', [cfg.tplengine, 'copy-assets', 'jade', 'swig', 'js', 'less', 'sass'], function(done) {
+gulp.task('dist', [cfg.tplengine, 'copy:temp', 'jade', 'swig', 'js', 'less', 'sass'], function(done) {
     done();
 });
 
-gulp.task('build', ['ref', 'clean:js', 'clean:css', 'clean:combined']);
+gulp.task('build', ['ref', 'copy:dist', 'clean:combined', 'clean:temp']);
 
 gulp.task('live', ['server', 'sass', 'less', 'watch']);
 

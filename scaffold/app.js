@@ -32,7 +32,7 @@ app.get(/.*\.html|.*\.htm|^\/$/, function* (next) {
 app.use(common.static(path.join(__dirname, cfg.src, cfg.assets)));
 
 // serve .less, .scss, etc.
-app.use(common.static(path.join(__dirname, 'dist')));
+app.use(common.static(path.join(__dirname, 'temp')));
 
 if (!module.parent) {
     app.listen(cfg.port);
