@@ -42,7 +42,7 @@ sftp-config.json
 Session.vim
 .netrwhist
 *~
-scaffold/src/*
-scaffold/dist/*
-scaffold/temp/*
-scaffold/node_modules/*
+src/*
+dist/*
+temp/*
+node_modules/*
