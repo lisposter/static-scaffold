@@ -53,9 +53,9 @@ gulp.task('sass', function() {
 
 // devide copy task(css, less, img...)
 gulp.task('copy-assets', function() {
-    var assetsFilter = filter(['*', '!*less*', '!*sass*', '!*scss*']);
+    //var assetsFilter = filter(['*', '!*less*', '!*sass*', '!*scss*']);
     gulp.src(cfg.src + '/' + cfg.assets + '/**/*')
-        .pipe(assetsFilter)
+        //.pipe(assetsFilter)
         .pipe(copy('./dist', { prefix: 2 }));
 });
 
@@ -65,17 +65,17 @@ gulp.task('ref', ['dist'], function() {
 
     var assets = useref.assets();
     return gulp.src('./dist/**/*.html')
-        .pipe(assets)     
+        .pipe(assets)
         .pipe(jsFilter)
-        .pipe(uglify())           
+        .pipe(uglify())
         .pipe(jsFilter.restore())
         .pipe(cssFilter)
         .pipe(minifyCss())
         .pipe(cssFilter.restore())
-        .pipe(rev())           
+        .pipe(rev())
         .pipe(assets.restore())
         .pipe(useref())
-        .pipe(revReplace())      
+        .pipe(revReplace())
         .pipe(gulp.dest('./dist/'));
 });
 

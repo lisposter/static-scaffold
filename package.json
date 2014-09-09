@@ -1,6 +1,6 @@
 {
   "name": "static-scaffold",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "a scaffold for develop and build static website fast",
   "main": "bin/cli.js",
   "bin": {
