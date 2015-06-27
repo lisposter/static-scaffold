@@ -14,7 +14,6 @@ var rev = require('gulp-rev');
 var revReplace = require('gulp-rev-replace');
 var revOutdated = require('gulp-rev-outdated');
 var cleaner = require('gulp-rimraf');
-var watch = require('gulp-watch');
 var livereload = require('gulp-livereload');
 var del = require('del');
 
@@ -34,7 +33,7 @@ gulp.task('swig', function() {
 
 gulp.task('js', function() {
     return gulp.src(cfg.src + '/' + cfg.scripts + '/**/*.js')
-        .pipe(copy('./dist/js', { prefix: 2 }));
+        .pipe(copy('./temp/' + cfg.scripts, { prefix: 2 }));
 });
 
 gulp.task('less', function() {
@@ -45,7 +44,7 @@ gulp.task('less', function() {
 });
 
 gulp.task('sass', function() {
-    return gulp.src(path.join(cfg.src, cfg.assets, cfg.sass) + '/**/*')
+    return gulp.src(path.join(cfg.src, cfg.sass) + '/**/*')
         //.pipe(watch())
         .pipe(sass())
         .pipe(gulp.dest('./temp/css'));
@@ -131,7 +130,7 @@ gulp.task('dist', [cfg.tplengine, 'copy:temp', 'jade', 'swig', 'js', 'less', 'sa
     done();
 });
 
-gulp.task('build', ['ref', 'copy:dist', 'clean:combined', 'clean:temp']);
+gulp.task('build', ['clean', 'ref', 'copy:dist', 'clean:combined', 'clean:temp']);
 
 gulp.task('live', ['server', 'sass', 'less', 'watch']);
 

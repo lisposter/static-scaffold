@@ -23,7 +23,7 @@ exec(cpCmd, function (err, stdout, stderr) {
         fs.writeFileSync(projDir + '/package.json', content);
 
         fs.mkdirSync(path.join(projDir, 'src'));
-        fs.mkdirSync(path.join(projDir, 'src/static'));
+        fs.mkdirSync(path.join(projDir, 'src/assets'));
         fs.mkdirSync(path.join(projDir, 'src/views'));
     });
 });
