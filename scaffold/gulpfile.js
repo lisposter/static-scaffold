@@ -40,14 +40,16 @@ gulp.task('less', function() {
     return gulp.src(path.join(cfg.src, cfg.assets, cfg.less) + '/**/*.less')
         //.pipe(watch())
         .pipe(less())
-        .pipe(gulp.dest('./temp/css'));
+        .pipe(gulp.dest('./temp/css'))
+        .pipe(livereload());
 });
 
 gulp.task('sass', function() {
     return gulp.src(path.join(cfg.src, cfg.sass) + '/**/*')
         //.pipe(watch())
         .pipe(sass())
-        .pipe(gulp.dest('./temp/css'));
+        .pipe(gulp.dest('./temp/css'))
+        .pipe(livereload());
 });
 
 // devide copy task(css, less, img...)
@@ -93,15 +95,11 @@ gulp.task('review', function() {
 });
 
 gulp.task('watch', function() {
-    gulp.watch('src/assets/less/**/*.less', ['less']);
+    livereload.listen();
 
-    gulp.watch('src/assets/sass/**/*', ['sass']);
+    gulp.watch(path.join(cfg.src, cfg.less) + '/**/*', ['less']);
 
-    var server = livereload();
-    server.changed();
-    gulp.watch('src/**').on('change', function(file) {
-        server.changed(file.path);
-    });
+    gulp.watch(path.join(cfg.src, cfg.sass) + '/**/*', ['sass']);
 });
 
 gulp.task('clean', function(cb) {
