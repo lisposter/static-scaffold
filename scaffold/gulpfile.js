@@ -37,7 +37,7 @@ gulp.task('js', function() {
 });
 
 gulp.task('less', function() {
-    return gulp.src(path.join(cfg.src, cfg.assets, cfg.less) + '/**/*.less')
+    return gulp.src(path.join(cfg.src, cfg.less) + '/**/*.less')
         //.pipe(watch())
         .pipe(less())
         .pipe(gulp.dest('./temp/css'))
