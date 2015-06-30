@@ -97,6 +97,10 @@ gulp.task('review', function() {
 gulp.task('watch', function() {
     livereload.listen();
 
+    gulp.watch(cfg.src + '/' + cfg.views + '/**/*').on('change', function(file) {
+        livereload.changed(file.path);
+    });
+
     gulp.watch(path.join(cfg.src, cfg.less) + '/**/*', ['less']);
 
     gulp.watch(path.join(cfg.src, cfg.sass) + '/**/*', ['sass']);
