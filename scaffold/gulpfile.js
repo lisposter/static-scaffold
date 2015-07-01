@@ -13,9 +13,9 @@ var filter = require('gulp-filter');
 var rev = require('gulp-rev');
 var revReplace = require('gulp-rev-replace');
 var revOutdated = require('gulp-rev-outdated');
-var cleaner = require('gulp-rimraf');
 var livereload = require('gulp-livereload');
 var del = require('del');
+var vinylPaths = require('vinyl-paths');
 
 var cfg = require('./config');
 
@@ -121,11 +121,11 @@ gulp.task('clean:temp', ['dist', 'copy:dist', 'clean:combined'], function(cb) {
 gulp.task('clean:combined', ['ref'], function() {
     gulp.src(['dist/js/combined*.js'], { read: false })
         .pipe(revOutdated(1))
-        .pipe(cleaner());
+        .pipe(vinylPaths(del));
 
     gulp.src(['dist/css/combined*.css'], { read: false })
         .pipe(revOutdated(1))
-        .pipe(cleaner());
+        .pipe(vinylPaths(del));
 });
 
 gulp.task('dist', [cfg.tplengine, 'copy:temp', 'jade', 'swig', 'js', 'less', 'sass'], function(done) {
