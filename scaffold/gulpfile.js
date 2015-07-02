@@ -1,19 +1,7 @@
 var path = require('path');
 
 var gulp = require('gulp');
-var jade = require('gulp-jade');
-var swig = require('gulp-swig');
-var less = require('gulp-less');
-var sass = require('gulp-sass');
-var minifyCss = require('gulp-minify-css');
-var copy = require('gulp-copy');
-var uglify = require('gulp-uglify');
-var useref = require('gulp-useref');
-var filter = require('gulp-filter');
-var rev = require('gulp-rev');
-var revReplace = require('gulp-rev-replace');
-var revOutdated = require('gulp-rev-outdated');
-var livereload = require('gulp-livereload');
+var plugins = require('gulp-load-plugins')();
 var del = require('del');
 var vinylPaths = require('vinyl-paths');
 
@@ -21,66 +9,66 @@ var cfg = require('./config');
 
 gulp.task('jade', function() {
     return gulp.src(cfg.src + '/' + cfg.views + '/**/*.jade')
-        .pipe(jade({pretty: true}))
+        .pipe(plugins.jade({pretty: true}))
         .pipe(gulp.dest('./temp/'));
 });
 
 gulp.task('swig', function() {
     return gulp.src(cfg.src + '/' + cfg.views + '/**/*.html')
-        .pipe(swig())
+        .pipe(plugins.swig())
         .pipe(gulp.dest('./temp/'));
 });
 
 gulp.task('js', function() {
     return gulp.src(cfg.src + '/' + cfg.scripts + '/**/*.js')
-        .pipe(copy('./temp/' + cfg.scripts, { prefix: 2 }));
+        .pipe(plugins.copy('./temp/' + cfg.scripts, { prefix: 2 }));
 });
 
 gulp.task('less', function() {
     return gulp.src(path.join(cfg.src, cfg.less) + '/**/*.less')
         //.pipe(watch())
-        .pipe(less())
+        .pipe(plugins.less())
         .pipe(gulp.dest('./temp/css'))
-        .pipe(livereload());
+        .pipe(plugins.livereload());
 });
 
 gulp.task('sass', function() {
     return gulp.src(path.join(cfg.src, cfg.sass) + '/**/*')
         //.pipe(watch())
-        .pipe(sass())
+        .pipe(plugins.sass())
         .pipe(gulp.dest('./temp/css'))
-        .pipe(livereload());
+        .pipe(plugins.livereload());
 });
 
 // devide copy task(css, less, img...)
 gulp.task('copy:temp', function() {
     return gulp.src(cfg.src + '/' + cfg.assets + '/**/*')
-        .pipe(copy('./temp', { prefix: 2 }));
+        .pipe(plugins.copy('./temp', { prefix: 2 }));
 });
 
 // TODO: skip css, js which has been combined
 gulp.task('copy:dist', function() {
     return gulp.src(cfg.src + '/' + cfg.assets + '/**/*')
-        .pipe(copy('./dist', { prefix: 2 }));
+        .pipe(plugins.copy('./dist', { prefix: 2 }));
 });
 
 gulp.task('ref', ['dist'], function() {
-    var jsFilter = filter('**/*.js');
-    var cssFilter = filter('**/*.css');
+    var jsFilter = plugins.filter('**/*.js');
+    var cssFilter = plugins.filter('**/*.css');
 
-    var assets = useref.assets();
+    var assets = plugins.useref.assets();
     return gulp.src('./temp/**/*.html')
         .pipe(assets)
         .pipe(jsFilter)
-        .pipe(uglify())
+        .pipe(plugins.uglify())
         .pipe(jsFilter.restore())
         .pipe(cssFilter)
-        .pipe(minifyCss())
+        .pipe(plugins.minifyCss())
         .pipe(cssFilter.restore())
-        .pipe(rev())
+        .pipe(plugins.rev())
         .pipe(assets.restore())
-        .pipe(useref())
-        .pipe(revReplace())
+        .pipe(plugins.useref())
+        .pipe(plugins.revReplace())
         .pipe(gulp.dest('./dist/'));
 });
 
@@ -95,10 +83,10 @@ gulp.task('review', function() {
 });
 
 gulp.task('watch', function() {
-    livereload.listen();
+    plugins.livereload.listen();
 
     gulp.watch(cfg.src + '/' + cfg.views + '/**/*').on('change', function(file) {
-        livereload.changed(file.path);
+        plugins.livereload.changed(file.path);
     });
 
     gulp.watch(path.join(cfg.src, cfg.less) + '/**/*', ['less']);
@@ -120,11 +108,11 @@ gulp.task('clean:temp', ['dist', 'copy:dist', 'clean:combined'], function(cb) {
 
 gulp.task('clean:combined', ['ref'], function() {
     gulp.src(['dist/js/combined*.js'], { read: false })
-        .pipe(revOutdated(1))
+        .pipe(plugins.revOutdated(1))
         .pipe(vinylPaths(del));
 
     gulp.src(['dist/css/combined*.css'], { read: false })
-        .pipe(revOutdated(1))
+        .pipe(plugins.revOutdated(1))
         .pipe(vinylPaths(del));
 });
 
