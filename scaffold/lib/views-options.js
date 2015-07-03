@@ -1,10 +1,10 @@
 module.exports = {
-    jade: {
-        default: 'jade'
-    },
-    swig: {
-        map: {
-            html: 'swig'
-        }
+  jade: {
+    default: 'jade'
+  },
+  swig: {
+    map: {
+      html: 'swig'
     }
-}
+  }
+};

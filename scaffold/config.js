@@ -1,27 +1,27 @@
 module.exports = {
 
-    // template engine
-    tplengine: 'swig',
+  // template engine
+  tplengine: 'swig',
 
-    // project's source dir
-    src: 'src',
+  // project's source dir
+  src: 'src',
 
-    // project's static files' path, eg: css, js, image
-    assets: 'assets',
+  // project's static files' path, eg: css, js, image
+  assets: 'assets',
 
-    // scripts
-    scripts: 'scripts',
+  // scripts
+  scripts: 'scripts',
 
-    // less
-    less: 'less',
+  // less
+  less: 'less',
 
-    // sass
-    sass: 'sass',
+  // sass
+  sass: 'sass',
 
-    // web pages source, eg: .jade files
-    views: 'views',
+  // web pages source, eg: .jade files
+  views: 'views',
 
-    // local preview server's port
-    port: 8300
+  // local preview server's port
+  port: 8300
 
-}
+};

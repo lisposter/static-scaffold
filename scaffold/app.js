@@ -1,4 +1,5 @@
-var fs = require('fs');
+'use strict';
+
 var path = require('path');
 
 var koa = require('koa');
@@ -17,15 +18,15 @@ app.use(router(app));
 
 // handle index page
 app.get('/', function* (next) {
-    yield this.render('index');
+  yield this.render('index');
 });
 
 
 // handle other pages
 app.get(/.*\.html|.*\.htm|^\/$/, function* (next) {
-    var url = this.request.url;
-    var tpl = /.*\.html/.exec(url)[0].slice(1).replace(/\.html$/, '');
-    yield this.render(tpl);
+  var url = this.request.url;
+  var tpl = /.*\.html/.exec(url)[0].slice(1).replace(/\.html$/, '');
+  yield this.render(tpl);
 });
 
 // serve static files which doesn't need to compile(.css, .jpg, etc)
@@ -35,8 +36,8 @@ app.use(common.static(path.join(__dirname, cfg.src, cfg.assets)));
 app.use(common.static(path.join(__dirname, 'temp')));
 
 if (!module.parent) {
-    app.listen(cfg.port);
-    console.log('Server started at: http://localhost:' + cfg.port);
+  app.listen(cfg.port);
+  console.log('Server started at: http://localhost:' + cfg.port);
 }
 
 
